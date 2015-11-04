@@ -7,6 +7,7 @@ Explore an Android app that:
 * Uses Android Data Binding.
 * Has minimum Espresso testing, solely to verify the bindings.
 
+Original blog post: https://medium.com/@hiBrianLee/writing-testable-android-mvvm-app-prelude-e49f7e6223
 
 Sample App
 =============

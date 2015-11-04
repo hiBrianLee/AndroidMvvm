@@ -1,0 +1,13 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Mvvm Sample App</string>
+
+    <string name="button_clicks">Button Clicks</string>
+    <string name="click_count">Click count: <xliff:g id="clicks" example="5">%1$d</xliff:g></string>
+    <string name="click">Click</string>
+
+    <string name="recycler_view">RecyclerView</string>
+
+    <string name="twitter_handle">\@hiBrianLee</string>
+    <string name="twitter_url">https://www.twitter.com/hiBrianLee</string>
+
+</resources>
