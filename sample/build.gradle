@@ -38,7 +38,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     apt 'com.android.databinding:compiler:1.0-rc4'
-    compile 'com.android.support:recyclerview-v7:23.1.0'
 
     compile 'com.jakewharton:butterknife:7.0.1'
 
