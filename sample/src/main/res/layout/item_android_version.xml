@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/versionItem"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/item_background"
-    android:orientation="vertical"
-    android:padding="@dimen/default_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hibrianlee.sample.mvvm.viewmodel.AndroidVersionItemViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/versionItem"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        tools:text="Android 6.0"/>
+        android:background="@drawable/item_background"
+        android:orientation="vertical"
+        android:padding="@dimen/default_margin"
+        bind:selected="@{viewModel.selected}">
 
-    <TextView
-        android:id="@+id/codeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="Marshmallow"/>
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.version}"
+            android:textStyle="bold"
+            tools:text="Android 6.0"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/codeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.codeName}"
+            android:textSize="20sp"
+            tools:text="Marshmallow"/>
+
+    </LinearLayout>
+</layout>
