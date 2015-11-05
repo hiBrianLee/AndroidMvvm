@@ -16,16 +16,20 @@
 
 package com.hibrianlee.sample.mvvm.activity;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
+import com.hibrianlee.mvvmapp.activity.ViewModelActivity;
+import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.R;
+import com.hibrianlee.sample.mvvm.viewmodel.MainViewModel;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ViewModelActivity {
+
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +38,25 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    @Nullable
+    @Override
+    protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
+        mainViewModel = new MainViewModel(savedViewModelState);
+        return mainViewModel;
+    }
+
     @OnClick(R.id.buttonClicks)
     void onClickButtonClicks() {
-        startActivity(new Intent(this, ClickCountActivity.class));
+        mainViewModel.onClickButtonClicks(this);
     }
 
     @OnClick(R.id.buttonRecyclerView)
     void onClickButtonRecyclerView() {
-        startActivity(new Intent(this, AndroidVersionsActivity.class));
+        mainViewModel.onClickButtonRecyclerView(this);
     }
 
     @OnClick(R.id.hiBrianLee)
     void onClickHiBrianLee() {
-        try {
-            Intent intent = Intent.parseUri(getString(R.string.twitter_url), 0);
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mainViewModel.onClickHiBrianLee(this);
     }
 }
