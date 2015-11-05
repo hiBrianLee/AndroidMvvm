@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context="com.hibrianlee.sample.mvvm.activity.ClickCountActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.hibrianlee.sample.mvvm.activity.ClickCountActivity">
 
-    <TextView
-        android:id="@+id/clickCountText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hibrianlee.sample.mvvm.viewmodel.ClickCountViewModel"/>
+    </data>
 
-    <Button
-        android:id="@+id/clickButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="@string/click" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/hiBrianLee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:padding="@dimen/default_margin"
-        android:textColor="@color/twitterColor"
-        android:text="@string/twitter_handle"/>
+        <TextView
+            android:id="@+id/clickCountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.clickCountText}"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/clickButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/click"/>
+
+        <TextView
+            android:id="@+id/hiBrianLee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:padding="@dimen/default_margin"
+            android:text="@string/twitter_handle"
+            android:textColor="@color/twitterColor"/>
+
+    </LinearLayout>
+</layout>

@@ -16,61 +16,46 @@
 
 package com.hibrianlee.sample.mvvm.activity;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.annotation.Nullable;
 
+import com.hibrianlee.mvvmapp.activity.ViewModelActivity;
+import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.R;
+import com.hibrianlee.sample.mvvm.databinding.ActivityClickCountBinding;
+import com.hibrianlee.sample.mvvm.viewmodel.ClickCountViewModel;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ClickCountActivity extends AppCompatActivity {
+public class ClickCountActivity extends ViewModelActivity {
 
-    private static final String EXTRA_CLICKS = "clicks";
-
-    @Bind(R.id.clickCountText)
-    TextView clickCountText;
-
-    private int clicks;
+    private ClickCountViewModel clickCountViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_click_count);
+        ActivityClickCountBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_click_count);
+        binding.setViewModel(clickCountViewModel);
         ButterKnife.bind(this);
-
-        if (savedInstanceState != null) {
-            clicks = savedInstanceState.getInt(EXTRA_CLICKS);
-        }
-        updateClicks();
     }
 
+    @Nullable
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(EXTRA_CLICKS, clicks);
+    protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
+        clickCountViewModel = new ClickCountViewModel(this, savedViewModelState);
+        return clickCountViewModel;
     }
 
     @OnClick(R.id.clickButton)
     void onClickButton() {
-        clicks++;
-        updateClicks();
+        clickCountViewModel.onClickButton();
     }
 
     @OnClick(R.id.hiBrianLee)
     void onClickHiBrianLee() {
-        try {
-            Intent intent = Intent.parseUri(getString(R.string.twitter_url), 0);
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateClicks() {
-        clickCountText.setText(String.format(getString(R.string.click_count), clicks));
+        clickCountViewModel.onClickHiBrianLee(this);
     }
 }
