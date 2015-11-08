@@ -20,6 +20,10 @@ ext {
     targetSdkVersion = 23
     buildToolsVersion = "23.0.2"
     javaVersion = JavaVersion.VERSION_1_7
+
+    supportLibraryVersion = '23.1.0'
+    dataBindingVersion = '1.0-rc4'
+    daggerVersion = '2.0.1'
 }
 
 allprojects {

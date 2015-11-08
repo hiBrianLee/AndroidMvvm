@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.hibrianlee.mvvmapp.viewmodel;
+package com.hibrianlee.mvvmapp.inject;
 
-import android.support.annotation.NonNull;
+import android.app.Activity;
 
-import com.hibrianlee.mvvmapp.inject.ActivityComponent;
+import java.net.URISyntaxException;
 
-public abstract class ItemViewModel<ITEM_T> extends ViewModel {
+public interface AttachedActivity {
 
-    public ItemViewModel(@NonNull ActivityComponent activityComponent) {
-        super(activityComponent, null);
-    }
+    void startActivity(Class<? extends Activity> activityClass);
 
-    public abstract void setItem(ITEM_T item);
+    void openUrl(String url) throws URISyntaxException;
 }

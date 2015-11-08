@@ -17,9 +17,13 @@
 package com.hibrianlee.mvvmapp.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
+import com.hibrianlee.mvvmapp.activity.ViewModelActivity;
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 
 public abstract class ViewModelFragment extends Fragment {
@@ -29,17 +33,20 @@ public abstract class ViewModelFragment extends Fragment {
     private ViewModel viewModel;
 
     @Nullable
-    protected abstract ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState);
+    protected abstract ViewModel createAndBindViewModel(View root,
+                                                 @NonNull ActivityComponent activityComponent,
+                                                 @Nullable ViewModel.State savedViewModelState);
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         ViewModel.State savedViewModelState = null;
         if (savedInstanceState != null) {
             savedViewModelState = savedInstanceState.getParcelable(EXTRA_VIEW_MODEL_STATE);
         }
-        viewModel = createViewModel(savedViewModelState);
+        ViewModelActivity activity = (ViewModelActivity) getActivity();
+        viewModel = createAndBindViewModel(getView(), activity.getActivityComponent(),
+                savedViewModelState);
     }
 
     @Override

@@ -20,12 +20,22 @@ import android.databinding.BaseObservable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
+import com.hibrianlee.mvvmapp.inject.AttachedActivity;
+
+import javax.inject.Inject;
 
 public abstract class ViewModel extends BaseObservable {
 
-    protected ViewModel(@Nullable State savedInstanceState) {
+    @Inject
+    protected AttachedActivity attachedActivity;
 
+    protected ViewModel(@NonNull ActivityComponent activityComponent,
+                        @Nullable State savedInstanceState) {
+        activityComponent.inject(this);
     }
 
     @CallSuper

@@ -29,10 +29,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    apt 'com.android.databinding:compiler:1.0-rc4'
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:recyclerview-v7:23.1.0'
+    apt "com.android.databinding:compiler:${rootProject.ext.dataBindingVersion}"
+    compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
+    compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
 
+    // dagger
+    compile "com.google.dagger:dagger:${rootProject.ext.daggerVersion}"
+    apt "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
+    provided 'javax.annotation:javax.annotation-api:1.2'
 
     testCompile 'junit:junit:4.12'
 }

@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-package com.hibrianlee.mvvmapp.viewmodel;
+package com.hibrianlee.mvvmapp.inject;
 
-import android.support.annotation.NonNull;
+import com.hibrianlee.mvvmapp.activity.ViewModelActivity;
 
-import com.hibrianlee.mvvmapp.inject.ActivityComponent;
+import dagger.Module;
+import dagger.Provides;
 
-public abstract class ItemViewModel<ITEM_T> extends ViewModel {
+@Module
+public final class ActivityModule {
 
-    public ItemViewModel(@NonNull ActivityComponent activityComponent) {
-        super(activityComponent, null);
+    private final ViewModelActivity activity;
+
+    public ActivityModule(ViewModelActivity activity) {
+        this.activity = activity;
     }
 
-    public abstract void setItem(ITEM_T item);
+    @Provides
+    @PerActivity
+    AttachedActivity provideAttachedActivity() {
+        return new AttachedViewModelActivity(activity);
+    }
 }

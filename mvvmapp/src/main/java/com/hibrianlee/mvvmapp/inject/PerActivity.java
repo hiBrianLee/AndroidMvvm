@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package com.hibrianlee.mvvmapp.viewmodel;
+package com.hibrianlee.mvvmapp.inject;
 
-import android.support.annotation.NonNull;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import com.hibrianlee.mvvmapp.inject.ActivityComponent;
+import javax.inject.Scope;
 
-public abstract class ItemViewModel<ITEM_T> extends ViewModel {
-
-    public ItemViewModel(@NonNull ActivityComponent activityComponent) {
-        super(activityComponent, null);
-    }
-
-    public abstract void setItem(ITEM_T item);
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PerActivity {
 }

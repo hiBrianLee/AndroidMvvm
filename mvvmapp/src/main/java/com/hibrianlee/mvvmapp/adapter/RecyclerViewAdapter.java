@@ -17,9 +17,11 @@
 package com.hibrianlee.mvvmapp.adapter;
 
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ItemViewModel;
 
 import java.util.ArrayList;
@@ -29,7 +31,10 @@ public abstract class RecyclerViewAdapter<ITEM_T, VIEW_MODEL_T extends ItemViewM
 
     protected final ArrayList<ITEM_T> items;
 
-    public RecyclerViewAdapter() {
+    private final ActivityComponent activityComponent;
+
+    public RecyclerViewAdapter(@NonNull ActivityComponent activityComponent) {
+        this.activityComponent = activityComponent;
         items = new ArrayList<>();
     }
 
@@ -41,6 +46,10 @@ public abstract class RecyclerViewAdapter<ITEM_T, VIEW_MODEL_T extends ItemViewM
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    protected final ActivityComponent getActivityComponent() {
+        return activityComponent;
     }
 
     public static class ItemViewHolder<T, VT extends ItemViewModel<T>>

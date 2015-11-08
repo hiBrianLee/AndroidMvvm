@@ -20,26 +20,36 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
+import com.hibrianlee.mvvmapp.inject.ActivityModule;
+import com.hibrianlee.mvvmapp.inject.DaggerActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 
 public abstract class ViewModelActivity extends AppCompatActivity {
 
     private static final String EXTRA_VIEW_MODEL_STATE = "viewModelState";
 
+    private ActivityComponent activityComponent;
     private ViewModel viewModel;
-
-    @Nullable
-    protected abstract ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .build();
 
         ViewModel.State savedViewModelState = null;
         if (savedInstanceState != null) {
             savedViewModelState = savedInstanceState.getParcelable(EXTRA_VIEW_MODEL_STATE);
         }
         viewModel = createViewModel(savedViewModelState);
+    }
+
+    @Nullable
+    protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
+        return null;
     }
 
     @Override
@@ -64,6 +74,10 @@ public abstract class ViewModelActivity extends AppCompatActivity {
         if (viewModel != null) {
             viewModel.onStop();
         }
+    }
+
+    public final ActivityComponent getActivityComponent() {
+        return activityComponent;
     }
 }
 

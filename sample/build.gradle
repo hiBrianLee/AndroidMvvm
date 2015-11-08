@@ -37,7 +37,7 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    apt 'com.android.databinding:compiler:1.0-rc4'
+    apt "com.android.databinding:compiler:${rootProject.ext.dataBindingVersion}"
 
     compile 'com.jakewharton:butterknife:7.0.1'
 
