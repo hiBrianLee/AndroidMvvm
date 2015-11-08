@@ -16,7 +16,7 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import com.hibrianlee.sample.mvvm.BaseTest;
+import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.activity.AndroidVersionsActivity;
 import com.hibrianlee.sample.mvvm.activity.ClickCountActivity;
@@ -26,14 +26,11 @@ import org.junit.Test;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class MainViewModelTest extends BaseTest {
-
-    private MainViewModel viewModel;
+public class MainViewModelTest extends ViewModelTest<MainViewModel> {
 
     @Override
-    public void setup() {
-        super.setup();
-        viewModel = new MainViewModel(testComponent, null);
+    protected MainViewModel createViewModel(ViewModel.State savedInstanceState) {
+        return new MainViewModel(testComponent, null);
     }
 
     @Test

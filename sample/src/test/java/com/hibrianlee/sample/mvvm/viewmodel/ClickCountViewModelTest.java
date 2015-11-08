@@ -16,26 +16,30 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import com.hibrianlee.sample.mvvm.BaseTest;
+import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
+import com.hibrianlee.sample.mvvm.BR;
 import com.hibrianlee.sample.mvvm.R;
 
 import org.junit.Test;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ClickCountViewModelTest extends BaseTest {
+public class ClickCountViewModelTest extends ViewModelTest<ClickCountViewModel> {
 
     private static final String TWITTER_URL = "twitterUrl";
 
-    private ClickCountViewModel viewModel;
+    @Override
+    protected ClickCountViewModel createViewModel(ViewModel.State savedInstanceState) {
+        return new ClickCountViewModel(testComponent, savedInstanceState);
+    }
 
     @Override
     public void setup() {
         super.setup();
         when(appContext.getString(R.string.click_count)).thenReturn("%d");
         when(appContext.getString(R.string.twitter_url)).thenReturn(TWITTER_URL);
-        viewModel = new ClickCountViewModel(testComponent, null);
     }
 
     @Test
@@ -51,7 +55,7 @@ public class ClickCountViewModelTest extends BaseTest {
         viewModel.onClickButton();
         assertEquals("2", viewModel.getClickCountText());
 
-        // TODO: property changed?
+        verifyPropertyChanged(BR.clickCountText, times(2));
     }
 
     @Test
@@ -60,5 +64,16 @@ public class ClickCountViewModelTest extends BaseTest {
         verify(attachedActivity).openUrl(TWITTER_URL);
     }
 
-    // TODO: test rotation?
+    @Test
+    public void testRotation() {
+        viewModel.onClickButton();
+        rotateDestroy();
+        rotateCreate();
+        assertEquals("1", viewModel.getClickCountText());
+
+        viewModel.onClickButton();
+        rotateDestroy();
+        rotateCreate();
+        assertEquals("2", viewModel.getClickCountText());
+    }
 }
