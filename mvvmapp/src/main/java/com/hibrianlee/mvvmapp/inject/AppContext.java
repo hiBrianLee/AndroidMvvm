@@ -16,15 +16,13 @@
 
 package com.hibrianlee.mvvmapp.inject;
 
-import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
+import java.lang.annotation.Retention;
 
-import dagger.Component;
+import javax.inject.Qualifier;
 
-@PerActivity
-@Component(
-        dependencies = AppComponent.class,
-        modules = {ActivityModule.class})
-public interface ActivityComponent {
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-    void inject(ViewModel viewModel);
+@Qualifier
+@Retention(RUNTIME)
+public @interface AppContext {
 }

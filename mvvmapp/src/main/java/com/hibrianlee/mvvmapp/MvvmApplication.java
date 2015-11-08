@@ -14,17 +14,28 @@
  * limitations under the License.
  */
 
-package com.hibrianlee.mvvmapp.inject;
+package com.hibrianlee.mvvmapp;
 
-import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
+import android.app.Application;
 
-import dagger.Component;
+import com.hibrianlee.mvvmapp.inject.AppComponent;
+import com.hibrianlee.mvvmapp.inject.AppModule;
+import com.hibrianlee.mvvmapp.inject.DaggerAppComponent;
 
-@PerActivity
-@Component(
-        dependencies = AppComponent.class,
-        modules = {ActivityModule.class})
-public interface ActivityComponent {
+public class MvvmApplication extends Application {
 
-    void inject(ViewModel viewModel);
+    private AppComponent appComponent;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+    }
+
+    public AppComponent getAppComponent() {
+        return appComponent;
+    }
 }

@@ -20,8 +20,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.hibrianlee.mvvmapp.MvvmApplication;
 import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.inject.ActivityModule;
+import com.hibrianlee.mvvmapp.inject.AppComponent;
 import com.hibrianlee.mvvmapp.inject.DaggerActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 
@@ -36,7 +38,11 @@ public abstract class ViewModelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        AppComponent appComponent = ((MvvmApplication) getApplication()).getAppComponent();
+        appComponent.inject(this);
+
         activityComponent = DaggerActivityComponent.builder()
+                .appComponent(appComponent)
                 .activityModule(new ActivityModule(this))
                 .build();
 

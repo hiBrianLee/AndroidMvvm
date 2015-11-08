@@ -16,15 +16,23 @@
 
 package com.hibrianlee.mvvmapp.inject;
 
-import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
+import android.content.Context;
+
+import com.hibrianlee.mvvmapp.activity.ViewModelActivity;
+import com.hibrianlee.mvvmapp.fragment.ViewModelFragment;
+
+import javax.inject.Singleton;
 
 import dagger.Component;
 
-@PerActivity
-@Component(
-        dependencies = AppComponent.class,
-        modules = {ActivityModule.class})
-public interface ActivityComponent {
+@Singleton
+@Component(modules = {AppModule.class})
+public interface AppComponent {
 
-    void inject(ViewModel viewModel);
+    @AppContext
+    Context appContext();
+
+    void inject(ViewModelActivity viewModelActivity);
+
+    void inject(ViewModelFragment viewModelFragment);
 }
