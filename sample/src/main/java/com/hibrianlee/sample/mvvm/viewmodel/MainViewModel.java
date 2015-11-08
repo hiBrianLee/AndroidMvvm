@@ -25,6 +25,8 @@ import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.activity.AndroidVersionsActivity;
 import com.hibrianlee.sample.mvvm.activity.ClickCountActivity;
 
+import java.net.URISyntaxException;
+
 public class MainViewModel extends ViewModel {
 
     public MainViewModel(@NonNull ActivityComponent activityComponent,
@@ -41,7 +43,10 @@ public class MainViewModel extends ViewModel {
     }
 
     public void onClickHiBrianLee() {
-        // TODO
-        // attachedActivity.openUrl(activity.getString(R.string.twitter_url));
+        try {
+            attachedActivity.openUrl(appContext.getString(R.string.twitter_url));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }

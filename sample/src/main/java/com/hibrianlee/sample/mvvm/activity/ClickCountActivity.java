@@ -45,8 +45,7 @@ public class ClickCountActivity extends ViewModelActivity {
     @Nullable
     @Override
     protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
-        clickCountViewModel = new ClickCountViewModel(this, getActivityComponent(),
-                savedViewModelState);
+        clickCountViewModel = new ClickCountViewModel(getActivityComponent(), savedViewModelState);
         return clickCountViewModel;
     }
 

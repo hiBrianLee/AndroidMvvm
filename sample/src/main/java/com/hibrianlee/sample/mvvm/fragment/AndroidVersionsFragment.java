@@ -50,7 +50,7 @@ public class AndroidVersionsFragment extends ViewModelFragment {
     protected ViewModel createAndBindViewModel(View root,
                                                @NonNull ActivityComponent activityComponent,
                                                @Nullable ViewModel.State savedViewModelState) {
-        androidVersionsViewModel = new AndroidVersionsViewModel(getContext(), activityComponent,
+        androidVersionsViewModel = new AndroidVersionsViewModel(activityComponent,
                 savedViewModelState);
         FragmentAndroidVersionsBinding binding = FragmentAndroidVersionsBinding.bind(root);
         binding.setViewModel(androidVersionsViewModel);

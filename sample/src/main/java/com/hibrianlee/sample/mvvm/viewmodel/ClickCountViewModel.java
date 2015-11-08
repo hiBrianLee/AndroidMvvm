@@ -16,7 +16,6 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import android.content.Context;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
@@ -29,15 +28,11 @@ import com.hibrianlee.sample.mvvm.R;
 
 public class ClickCountViewModel extends ViewModel {
 
-    private final Context appContext;
-
     int clicks;
 
-    public ClickCountViewModel(Context context,
-                               @NonNull ActivityComponent activityComponent,
+    public ClickCountViewModel(@NonNull ActivityComponent activityComponent,
                                @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
-        appContext = context.getApplicationContext();
         if (savedInstanceState instanceof ClickCountState) {
             clicks = ((ClickCountState) savedInstanceState).clicks;
         }

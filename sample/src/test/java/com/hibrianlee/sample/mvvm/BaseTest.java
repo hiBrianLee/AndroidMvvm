@@ -16,8 +16,10 @@
 
 package com.hibrianlee.sample.mvvm;
 
+import android.content.Context;
 import android.support.annotation.CallSuper;
 
+import com.hibrianlee.mvvmapp.inject.AppContext;
 import com.hibrianlee.mvvmapp.inject.AttachedActivity;
 
 import junit.framework.Assert;
@@ -32,6 +34,10 @@ public class BaseTest extends Assert {
     protected final TestComponent testComponent;
 
     @Inject
+    @AppContext
+    protected Context appContext;
+
+    @Inject
     protected AttachedActivity attachedActivity;
 
     public BaseTest() {
@@ -44,6 +50,6 @@ public class BaseTest extends Assert {
     @CallSuper
     @Before
     public void setup() {
-        Mockito.reset(attachedActivity);
+        Mockito.reset(appContext, attachedActivity);
     }
 }

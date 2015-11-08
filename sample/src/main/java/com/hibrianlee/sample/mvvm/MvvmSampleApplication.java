@@ -16,31 +16,7 @@
 
 package com.hibrianlee.sample.mvvm;
 
-import android.content.Context;
+import com.hibrianlee.mvvmapp.MvvmApplication;
 
-import com.hibrianlee.mvvmapp.inject.AppContext;
-import com.hibrianlee.mvvmapp.inject.AttachedActivity;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
-
-import static org.mockito.Mockito.mock;
-
-@Module
-public final class TestModule {
-
-    @Provides
-    @Singleton
-    @AppContext
-    Context provideAppContext() {
-        return mock(Context.class);
-    }
-
-    @Provides
-    @Singleton
-    AttachedActivity provideAttachedActivity() {
-        return mock(AttachedActivity.class);
-    }
+public class MvvmSampleApplication extends MvvmApplication {
 }

@@ -17,12 +17,14 @@
 package com.hibrianlee.sample.mvvm.viewmodel;
 
 import com.hibrianlee.sample.mvvm.BaseTest;
+import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.activity.AndroidVersionsActivity;
 import com.hibrianlee.sample.mvvm.activity.ClickCountActivity;
 
 import org.junit.Test;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class MainViewModelTest extends BaseTest {
 
@@ -48,6 +50,8 @@ public class MainViewModelTest extends BaseTest {
 
     @Test
     public void testOnClickHiBrianLee() throws Exception {
-        // TODO
+        when(appContext.getString(R.string.twitter_url)).thenReturn("test_url");
+        viewModel.onClickHiBrianLee();
+        verify(attachedActivity).openUrl("test_url");
     }
 }

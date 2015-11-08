@@ -16,7 +16,6 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,14 +33,11 @@ import java.util.ArrayList;
 
 public class AndroidVersionsViewModel extends RecyclerViewViewModel {
 
-    private final Context appContext;
-
     AndroidVersionsAdapter adapter;
 
-    public AndroidVersionsViewModel(Context context, @NonNull ActivityComponent activityComponent,
+    public AndroidVersionsViewModel(@NonNull ActivityComponent activityComponent,
                                     @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
-        appContext = context.getApplicationContext();
 
         ArrayList<AndroidVersion> versions;
         if (savedInstanceState instanceof AndroidVersionsState) {
