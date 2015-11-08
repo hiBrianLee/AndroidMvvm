@@ -41,22 +41,22 @@ public class MainActivity extends ViewModelActivity {
     @Nullable
     @Override
     protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
-        mainViewModel = new MainViewModel(savedViewModelState);
+        mainViewModel = new MainViewModel(getActivityComponent(), savedViewModelState);
         return mainViewModel;
     }
 
     @OnClick(R.id.buttonClicks)
     void onClickButtonClicks() {
-        mainViewModel.onClickButtonClicks(this);
+        mainViewModel.onClickButtonClicks();
     }
 
     @OnClick(R.id.buttonRecyclerView)
     void onClickButtonRecyclerView() {
-        mainViewModel.onClickButtonRecyclerView(this);
+        mainViewModel.onClickButtonRecyclerView();
     }
 
     @OnClick(R.id.hiBrianLee)
     void onClickHiBrianLee() {
-        mainViewModel.onClickHiBrianLee(this);
+        mainViewModel.onClickHiBrianLee();
     }
 }

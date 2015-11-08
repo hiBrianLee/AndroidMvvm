@@ -17,11 +17,13 @@
 package com.hibrianlee.sample.mvvm.adapter;
 
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.hibrianlee.mvvmapp.adapter.RecyclerViewAdapter;
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.databinding.ItemAndroidVersionBinding;
 import com.hibrianlee.sample.mvvm.model.AndroidVersion;
@@ -35,12 +37,17 @@ import butterknife.OnClick;
 public class AndroidVersionsAdapter
         extends RecyclerViewAdapter<AndroidVersion, AndroidVersionItemViewModel> {
 
+    public AndroidVersionsAdapter(@NonNull ActivityComponent activityComponent) {
+        super(activityComponent);
+    }
+
     @Override
     public AndroidVersionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_android_version, parent, false);
 
-        AndroidVersionItemViewModel viewModel = new AndroidVersionItemViewModel();
+        AndroidVersionItemViewModel viewModel =
+                new AndroidVersionItemViewModel(getActivityComponent());
 
         ItemAndroidVersionBinding binding = ItemAndroidVersionBinding.bind(itemView);
         binding.setViewModel(viewModel);

@@ -21,10 +21,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.hibrianlee.mvvmapp.activity.ViewModelActivity;
+import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.fragment.AndroidVersionsFragment;
 
-public class AndroidVersionsActivity extends AppCompatActivity {
+public class AndroidVersionsActivity extends ViewModelActivity {
 
     private static final String TAG_VERSIONS_FRAGMENT = "versionsFragment";
 

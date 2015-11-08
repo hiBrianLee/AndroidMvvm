@@ -16,13 +16,13 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.Bindable;
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.BR;
 import com.hibrianlee.sample.mvvm.R;
@@ -33,8 +33,10 @@ public class ClickCountViewModel extends ViewModel {
 
     int clicks;
 
-    public ClickCountViewModel(Context context, @Nullable State savedInstanceState) {
-        super(savedInstanceState);
+    public ClickCountViewModel(Context context,
+                               @NonNull ActivityComponent activityComponent,
+                               @Nullable State savedInstanceState) {
+        super(activityComponent, savedInstanceState);
         appContext = context.getApplicationContext();
         if (savedInstanceState instanceof ClickCountState) {
             clicks = ((ClickCountState) savedInstanceState).clicks;
@@ -56,10 +58,9 @@ public class ClickCountViewModel extends ViewModel {
         notifyPropertyChanged(BR.clickCountText);
     }
 
-    public void onClickHiBrianLee(Activity activity) {
+    public void onClickHiBrianLee() {
         try {
-            Intent intent = Intent.parseUri(activity.getString(R.string.twitter_url), 0);
-            activity.startActivity(intent);
+            attachedActivity.openUrl(appContext.getString(R.string.twitter_url));
         } catch (Exception e) {
             e.printStackTrace();
         }

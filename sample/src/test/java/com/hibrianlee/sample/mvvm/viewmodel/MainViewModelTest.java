@@ -16,46 +16,38 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import android.app.Activity;
-import android.content.Intent;
-
+import com.hibrianlee.sample.mvvm.BaseTest;
 import com.hibrianlee.sample.mvvm.activity.AndroidVersionsActivity;
 import com.hibrianlee.sample.mvvm.activity.ClickCountActivity;
 
-import junit.framework.Assert;
-
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class MainViewModelTest extends Assert {
+public class MainViewModelTest extends BaseTest {
 
     private MainViewModel viewModel;
-    private Activity activity;
 
-    @Before
+    @Override
     public void setup() {
-        activity = mock(Activity.class);
-        viewModel = new MainViewModel(null);
+        super.setup();
+        viewModel = new MainViewModel(testComponent, null);
     }
 
     @Test
     public void testOnClickButtonClicks() {
-        viewModel.onClickButtonClicks(activity);
-        verify(activity).startActivity(new Intent(activity, ClickCountActivity.class));
+        viewModel.onClickButtonClicks();
+        verify(attachedActivity).startActivity(ClickCountActivity.class);
     }
 
     @Test
     public void testOnClickButtonRecyclerView() {
-        viewModel.onClickButtonRecyclerView(activity);
-        verify(activity).startActivity(new Intent(activity, AndroidVersionsActivity.class));
+        viewModel.onClickButtonRecyclerView();
+        verify(attachedActivity).startActivity(AndroidVersionsActivity.class);
     }
 
     @Test
     public void testOnClickHiBrianLee() throws Exception {
-        viewModel.onClickHiBrianLee(activity);
-        verify(activity).startActivity(Intent.parseUri("https://www.twitter.com/hiBrianLee", 0));
+        // TODO
     }
 }

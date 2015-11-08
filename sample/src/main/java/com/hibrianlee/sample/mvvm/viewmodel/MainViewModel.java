@@ -16,10 +16,10 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.activity.AndroidVersionsActivity;
@@ -27,25 +27,21 @@ import com.hibrianlee.sample.mvvm.activity.ClickCountActivity;
 
 public class MainViewModel extends ViewModel {
 
-    public MainViewModel(@Nullable State savedInstanceState) {
-        super(savedInstanceState);
+    public MainViewModel(@NonNull ActivityComponent activityComponent,
+                         @Nullable State savedInstanceState) {
+        super(activityComponent, savedInstanceState);
     }
 
-    public void onClickButtonClicks(Activity activity) {
-        activity.startActivity(new Intent(activity, ClickCountActivity.class));
+    public void onClickButtonClicks() {
+        attachedActivity.startActivity(ClickCountActivity.class);
     }
 
-    public void onClickButtonRecyclerView(Activity activity) {
-        activity.startActivity(new Intent(activity, AndroidVersionsActivity.class));
+    public void onClickButtonRecyclerView() {
+        attachedActivity.startActivity(AndroidVersionsActivity.class);
     }
 
-    public void onClickHiBrianLee(Activity activity) {
-        try {
-            Intent intent = Intent.parseUri(activity.getString(R.string.twitter_url), 0);
-            activity.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void onClickHiBrianLee() {
+        // TODO
+        // attachedActivity.openUrl(activity.getString(R.string.twitter_url));
     }
 }
-

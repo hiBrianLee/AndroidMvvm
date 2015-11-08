@@ -38,9 +38,12 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     apt "com.android.databinding:compiler:${rootProject.ext.dataBindingVersion}"
+    apt "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
+    provided 'javax.annotation:javax.annotation-api:1.2'
 
     compile 'com.jakewharton:butterknife:7.0.1'
 
+    testApt "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
 }

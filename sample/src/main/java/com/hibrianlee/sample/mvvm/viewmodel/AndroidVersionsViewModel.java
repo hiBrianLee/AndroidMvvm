@@ -16,15 +16,15 @@
 
 package com.hibrianlee.sample.mvvm.viewmodel;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.hibrianlee.mvvmapp.adapter.RecyclerViewAdapter;
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.RecyclerViewViewModel;
 import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.adapter.AndroidVersionsAdapter;
@@ -38,8 +38,9 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
 
     AndroidVersionsAdapter adapter;
 
-    public AndroidVersionsViewModel(Context context, @Nullable State savedInstanceState) {
-        super(savedInstanceState);
+    public AndroidVersionsViewModel(Context context, @NonNull ActivityComponent activityComponent,
+                                    @Nullable State savedInstanceState) {
+        super(activityComponent, savedInstanceState);
         appContext = context.getApplicationContext();
 
         ArrayList<AndroidVersion> versions;
@@ -48,7 +49,7 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
         } else {
             versions = getVersions();
         }
-        adapter = new AndroidVersionsAdapter();
+        adapter = new AndroidVersionsAdapter(activityComponent);
         adapter.setItems(versions);
     }
 
@@ -67,10 +68,9 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
         return new AndroidVersionsState(this);
     }
 
-    public void onClickHiBrianLee(Activity activity) {
+    public void onClickHiBrianLee() {
         try {
-            Intent intent = Intent.parseUri(activity.getString(R.string.twitter_url), 0);
-            activity.startActivity(intent);
+            attachedActivity.openUrl(appContext.getString(R.string.twitter_url));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -17,7 +17,9 @@
 package com.hibrianlee.sample.mvvm.viewmodel;
 
 import android.databinding.Bindable;
+import android.support.annotation.NonNull;
 
+import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ItemViewModel;
 import com.hibrianlee.sample.mvvm.BR;
 import com.hibrianlee.sample.mvvm.model.AndroidVersion;
@@ -26,7 +28,12 @@ public class AndroidVersionItemViewModel extends ItemViewModel<AndroidVersion> {
 
     private AndroidVersion androidVersion;
 
+    public AndroidVersionItemViewModel(@NonNull ActivityComponent activityComponent) {
+        super(activityComponent);
+    }
+
     @Override
+
     public void setItem(AndroidVersion item) {
         androidVersion = item;
         notifyChange();
