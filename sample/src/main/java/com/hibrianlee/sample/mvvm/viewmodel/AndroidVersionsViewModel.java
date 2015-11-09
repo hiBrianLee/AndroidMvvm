@@ -35,7 +35,8 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
 
     AndroidVersionsAdapter adapter;
 
-    public AndroidVersionsViewModel(@NonNull ActivityComponent activityComponent,
+    public AndroidVersionsViewModel(@NonNull AndroidVersionsAdapter adapter,
+                                    @NonNull ActivityComponent activityComponent,
                                     @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
 
@@ -45,7 +46,7 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
         } else {
             versions = getVersions();
         }
-        adapter = new AndroidVersionsAdapter(activityComponent);
+        this.adapter = adapter;
         adapter.setItems(versions);
     }
 

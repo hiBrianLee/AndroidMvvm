@@ -27,6 +27,7 @@ import com.hibrianlee.mvvmapp.fragment.ViewModelFragment;
 import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.R;
+import com.hibrianlee.sample.mvvm.adapter.AndroidVersionsAdapter;
 import com.hibrianlee.sample.mvvm.databinding.FragmentAndroidVersionsBinding;
 import com.hibrianlee.sample.mvvm.viewmodel.AndroidVersionsViewModel;
 
@@ -50,7 +51,8 @@ public class AndroidVersionsFragment extends ViewModelFragment {
     protected ViewModel createAndBindViewModel(View root,
                                                @NonNull ActivityComponent activityComponent,
                                                @Nullable ViewModel.State savedViewModelState) {
-        androidVersionsViewModel = new AndroidVersionsViewModel(activityComponent,
+        androidVersionsViewModel = new AndroidVersionsViewModel(
+                new AndroidVersionsAdapter(activityComponent), activityComponent,
                 savedViewModelState);
         FragmentAndroidVersionsBinding binding = FragmentAndroidVersionsBinding.bind(root);
         binding.setViewModel(androidVersionsViewModel);
