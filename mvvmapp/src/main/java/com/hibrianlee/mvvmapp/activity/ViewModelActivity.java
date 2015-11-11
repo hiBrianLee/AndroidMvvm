@@ -34,12 +34,16 @@ public abstract class ViewModelActivity extends AppCompatActivity {
     private ActivityComponent activityComponent;
     private ViewModel viewModel;
 
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         AppComponent appComponent = ((MvvmApplication) getApplication()).getAppComponent();
-        appComponent.inject(this);
+        inject(appComponent);
 
         activityComponent = DaggerActivityComponent.builder()
                 .appComponent(appComponent)

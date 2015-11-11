@@ -30,8 +30,8 @@ public class ClickCountViewModel extends ViewModel {
 
     int clicks;
 
-    public ClickCountViewModel(@NonNull ActivityComponent activityComponent,
-                               @Nullable State savedInstanceState) {
+    ClickCountViewModel(@NonNull ActivityComponent activityComponent,
+                        @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
         if (savedInstanceState instanceof ClickCountState) {
             clicks = ((ClickCountState) savedInstanceState).clicks;

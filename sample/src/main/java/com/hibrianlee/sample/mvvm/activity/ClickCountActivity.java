@@ -20,7 +20,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.hibrianlee.mvvmapp.activity.ViewModelActivity;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.databinding.ActivityClickCountBinding;
@@ -29,7 +28,7 @@ import com.hibrianlee.sample.mvvm.viewmodel.ClickCountViewModel;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ClickCountActivity extends ViewModelActivity {
+public class ClickCountActivity extends BaseActivity {
 
     private ClickCountViewModel clickCountViewModel;
 
@@ -45,7 +44,8 @@ public class ClickCountActivity extends ViewModelActivity {
     @Nullable
     @Override
     protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
-        clickCountViewModel = new ClickCountViewModel(getActivityComponent(), savedViewModelState);
+        clickCountViewModel = viewModelFactory.createClickCountViewModel(getActivityComponent(),
+                savedViewModelState);
         return clickCountViewModel;
     }
 

@@ -28,7 +28,7 @@ public class AndroidVersionItemViewModel extends ItemViewModel<AndroidVersion> {
 
     private AndroidVersion androidVersion;
 
-    public AndroidVersionItemViewModel(@NonNull ActivityComponent activityComponent) {
+    AndroidVersionItemViewModel(@NonNull ActivityComponent activityComponent) {
         super(activityComponent);
     }
 

@@ -28,6 +28,7 @@ import com.hibrianlee.sample.mvvm.R;
 import com.hibrianlee.sample.mvvm.databinding.ItemAndroidVersionBinding;
 import com.hibrianlee.sample.mvvm.model.AndroidVersion;
 import com.hibrianlee.sample.mvvm.viewmodel.AndroidVersionItemViewModel;
+import com.hibrianlee.sample.mvvm.viewmodel.ViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -37,8 +38,12 @@ import butterknife.OnClick;
 public class AndroidVersionsAdapter
         extends RecyclerViewAdapter<AndroidVersion, AndroidVersionItemViewModel> {
 
-    public AndroidVersionsAdapter(@NonNull ActivityComponent activityComponent) {
+    private final ViewModelFactory viewModelFactory;
+
+    public AndroidVersionsAdapter(ViewModelFactory viewModelFactory,
+                                  @NonNull ActivityComponent activityComponent) {
         super(activityComponent);
+        this.viewModelFactory = viewModelFactory;
     }
 
     @Override
@@ -47,7 +52,7 @@ public class AndroidVersionsAdapter
                 .inflate(R.layout.item_android_version, parent, false);
 
         AndroidVersionItemViewModel viewModel =
-                new AndroidVersionItemViewModel(getActivityComponent());
+                viewModelFactory.createAndroidVersionItemViewModel(getActivityComponent());
 
         ItemAndroidVersionBinding binding = ItemAndroidVersionBinding.bind(itemView);
         binding.setViewModel(viewModel);

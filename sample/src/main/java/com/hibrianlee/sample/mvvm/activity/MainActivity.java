@@ -27,7 +27,7 @@ import com.hibrianlee.sample.mvvm.viewmodel.MainViewModel;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends ViewModelActivity {
+public class MainActivity extends BaseActivity {
 
     private MainViewModel mainViewModel;
 
@@ -41,7 +41,8 @@ public class MainActivity extends ViewModelActivity {
     @Nullable
     @Override
     protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
-        mainViewModel = new MainViewModel(getActivityComponent(), savedViewModelState);
+        mainViewModel = viewModelFactory.createMainViewModel(getActivityComponent(),
+                savedViewModelState);
         return mainViewModel;
     }
 

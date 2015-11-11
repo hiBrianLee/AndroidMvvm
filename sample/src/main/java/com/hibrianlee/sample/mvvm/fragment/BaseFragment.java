@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package com.hibrianlee.sample.mvvm;
+package com.hibrianlee.sample.mvvm.fragment;
 
+import com.hibrianlee.mvvmapp.fragment.ViewModelFragment;
 import com.hibrianlee.mvvmapp.inject.AppComponent;
-import com.hibrianlee.mvvmapp.inject.AppContextModule;
-import com.hibrianlee.sample.mvvm.activity.BaseActivity;
-import com.hibrianlee.sample.mvvm.fragment.BaseFragment;
+import com.hibrianlee.sample.mvvm.SampleAppComponent;
+import com.hibrianlee.sample.mvvm.viewmodel.ViewModelFactory;
 
-import javax.inject.Singleton;
+import javax.inject.Inject;
 
-import dagger.Component;
+public abstract class BaseFragment extends ViewModelFragment {
 
-@Singleton
-@Component(modules = {
-        AppContextModule.class,
-        SampleAppModule.class
-})
-public interface SampleAppComponent extends AppComponent {
+    @Inject
+    protected ViewModelFactory viewModelFactory;
 
-    void inject(BaseActivity baseActivity);
-
-    void inject(BaseFragment baseFragment);
+    @Override
+    protected void inject(AppComponent appComponent) {
+        ((SampleAppComponent) appComponent).inject(this);
+    }
 }

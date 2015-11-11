@@ -16,23 +16,20 @@
 
 package com.hibrianlee.sample.mvvm;
 
-import com.hibrianlee.mvvmapp.inject.AppComponent;
-import com.hibrianlee.mvvmapp.inject.AppContextModule;
-import com.hibrianlee.sample.mvvm.activity.BaseActivity;
-import com.hibrianlee.sample.mvvm.fragment.BaseFragment;
+import com.hibrianlee.sample.mvvm.viewmodel.AppViewModelFactory;
+import com.hibrianlee.sample.mvvm.viewmodel.ViewModelFactory;
 
 import javax.inject.Singleton;
 
-import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
-@Singleton
-@Component(modules = {
-        AppContextModule.class,
-        SampleAppModule.class
-})
-public interface SampleAppComponent extends AppComponent {
+@Module
+public class SampleAppModule {
 
-    void inject(BaseActivity baseActivity);
-
-    void inject(BaseFragment baseFragment);
+    @Provides
+    @Singleton
+    ViewModelFactory provideViewModelFactory(AppViewModelFactory appViewModelFactory) {
+        return appViewModelFactory;
+    }
 }

@@ -34,6 +34,10 @@ public abstract class ViewModelFragment extends Fragment {
 
     private ViewModel viewModel;
 
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
+    }
+
     @Nullable
     protected abstract ViewModel createAndBindViewModel(View root,
                                                  @NonNull ActivityComponent activityComponent,
@@ -44,7 +48,7 @@ public abstract class ViewModelFragment extends Fragment {
         super.onCreate(savedInstanceState);
         AppComponent appComponent =
                 ((MvvmApplication) getActivity().getApplication()).getAppComponent();
-        appComponent.inject(this);
+        inject(appComponent);
     }
 
     @Override

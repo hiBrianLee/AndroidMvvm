@@ -29,8 +29,8 @@ import java.net.URISyntaxException;
 
 public class MainViewModel extends ViewModel {
 
-    public MainViewModel(@NonNull ActivityComponent activityComponent,
-                         @Nullable State savedInstanceState) {
+    MainViewModel(@NonNull ActivityComponent activityComponent,
+                  @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
     }
 

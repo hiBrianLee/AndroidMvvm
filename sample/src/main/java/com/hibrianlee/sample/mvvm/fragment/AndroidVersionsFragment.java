@@ -34,7 +34,7 @@ import com.hibrianlee.sample.mvvm.viewmodel.AndroidVersionsViewModel;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AndroidVersionsFragment extends ViewModelFragment {
+public class AndroidVersionsFragment extends BaseFragment {
 
     private AndroidVersionsViewModel androidVersionsViewModel;
 
@@ -51,8 +51,8 @@ public class AndroidVersionsFragment extends ViewModelFragment {
     protected ViewModel createAndBindViewModel(View root,
                                                @NonNull ActivityComponent activityComponent,
                                                @Nullable ViewModel.State savedViewModelState) {
-        androidVersionsViewModel = new AndroidVersionsViewModel(
-                new AndroidVersionsAdapter(activityComponent), activityComponent,
+        androidVersionsViewModel = viewModelFactory.createAndroidVersionsViewModel(
+                new AndroidVersionsAdapter(viewModelFactory, activityComponent), activityComponent,
                 savedViewModelState);
         FragmentAndroidVersionsBinding binding = FragmentAndroidVersionsBinding.bind(root);
         binding.setViewModel(androidVersionsViewModel);
