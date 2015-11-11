@@ -14,18 +14,29 @@
  * limitations under the License.
  */
 
-package com.hibrianlee.sample.mvvm;
+package com.hibrianlee.mvvmapp.inject;
 
-import com.hibrianlee.mvvmapp.MvvmApplication;
-import com.hibrianlee.mvvmapp.inject.AppComponent;
-import com.hibrianlee.mvvmapp.inject.AppContextModule;
+import android.app.Application;
+import android.content.Context;
 
-public class MvvmSampleApplication extends MvvmApplication {
+import javax.inject.Singleton;
 
-    @Override
-    protected AppComponent createAppComponent() {
-        return DaggerSampleAppComponent.builder()
-                .appContextModule(new AppContextModule(this))
-                .build();
+import dagger.Module;
+import dagger.Provides;
+
+@Module
+public class AppContextModule {
+
+    private final Context appContext;
+
+    public AppContextModule(Application application) {
+        appContext = application;
+    }
+
+    @Provides
+    @Singleton
+    @AppContext
+    Context provideAppContext() {
+        return appContext;
     }
 }

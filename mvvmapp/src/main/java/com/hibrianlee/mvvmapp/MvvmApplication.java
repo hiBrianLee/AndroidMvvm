@@ -19,21 +19,19 @@ package com.hibrianlee.mvvmapp;
 import android.app.Application;
 
 import com.hibrianlee.mvvmapp.inject.AppComponent;
-import com.hibrianlee.mvvmapp.inject.AppModule;
-import com.hibrianlee.mvvmapp.inject.DaggerAppComponent;
 
-public class MvvmApplication extends Application {
+public abstract class MvvmApplication extends Application {
 
     private AppComponent appComponent;
+
+    protected abstract AppComponent createAppComponent();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         if (appComponent == null) {
-            appComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(this))
-                    .build();
+            appComponent = createAppComponent();
         }
     }
 
