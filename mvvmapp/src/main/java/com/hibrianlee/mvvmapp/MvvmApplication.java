@@ -30,12 +30,18 @@ public class MvvmApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .build();
+        if (appComponent == null) {
+            appComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(this))
+                    .build();
+        }
     }
 
     public AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    public void setAppComponent(AppComponent appComponent) {
+        this.appComponent = appComponent;
     }
 }

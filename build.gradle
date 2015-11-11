@@ -24,6 +24,7 @@ ext {
     supportLibraryVersion = '23.1.0'
     dataBindingVersion = '1.0-rc4'
     daggerVersion = '2.0.1'
+    dexMakerVersion = '1.4'
 }
 
 allprojects {
