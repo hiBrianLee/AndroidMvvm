@@ -19,10 +19,16 @@ package com.hibrianlee.sample.mvvm;
 import android.app.Instrumentation;
 import android.support.annotation.CallSuper;
 import android.support.test.InstrumentationRegistry;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.hibrianlee.mvvmapp.adapter.RecyclerViewAdapter;
 import com.hibrianlee.mvvmapp.inject.AppContextModule;
 import com.hibrianlee.sample.mvvm.viewmodel.MockViewModelFactory;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 
 import javax.inject.Inject;
@@ -44,5 +50,29 @@ public class BaseTest {
         application.setAppComponent(testComponent);
         testComponent.inject(this);
         viewModelFactory.clear();
+    }
+
+    public static Matcher<View> withRecyclerViewPosition(final int position) {
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with RecyclerView position: " + position);
+            }
+
+            @Override
+            protected boolean matchesSafely(View view) {
+                if (!(view.getParent() instanceof RecyclerView)) {
+                    return false;
+                }
+
+                RecyclerView recyclerView = (RecyclerView) view.getParent();
+                RecyclerView.Adapter adapter = recyclerView.getAdapter();
+                if (!(adapter instanceof RecyclerViewAdapter)) {
+                    return false;
+                }
+                return position == recyclerView.getChildAdapterPosition(view);
+            }
+        };
     }
 }

@@ -33,7 +33,6 @@ public class AndroidVersionItemViewModel extends ItemViewModel<AndroidVersion> {
     }
 
     @Override
-
     public void setItem(AndroidVersion item) {
         androidVersion = item;
         notifyChange();

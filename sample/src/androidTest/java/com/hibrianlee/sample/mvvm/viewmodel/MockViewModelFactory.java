@@ -120,7 +120,7 @@ public class MockViewModelFactory implements ViewModelFactory {
         androidVersionsViewModel = spy(new AndroidVersionsViewModel(adapter, activityComponent,
                 savedViewModelState));
         doNothingOnLifeCycle(androidVersionsViewModel);
-        doNothing().when(androidVersionsViewModel).onClickHiBrianLee();
+        setupSpy(AndroidVersionsViewModel.class, androidVersionsViewModel);
         return androidVersionsViewModel;
     }
 
@@ -128,9 +128,11 @@ public class MockViewModelFactory implements ViewModelFactory {
     @Override
     public AndroidVersionItemViewModel createAndroidVersionItemViewModel(
             @NonNull ActivityComponent activityComponent) {
-        androidVersionItemViewModel = spy(new AndroidVersionItemViewModel(activityComponent));
-        doNothingOnLifeCycle(androidVersionItemViewModel);
-        doNothing().when(androidVersionItemViewModel).onClick();
+        if (androidVersionItemViewModel == null) {
+            androidVersionItemViewModel = spy(new AndroidVersionItemViewModel(activityComponent));
+            doNothingOnLifeCycle(androidVersionItemViewModel);
+            setupSpy(AndroidVersionItemViewModel.class, androidVersionItemViewModel);
+        }
         return androidVersionItemViewModel;
     }
 
