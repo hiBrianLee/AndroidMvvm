@@ -23,6 +23,9 @@ import com.hibrianlee.mvvmapp.inject.ActivityComponent;
 import com.hibrianlee.mvvmapp.viewmodel.ViewModel;
 import com.hibrianlee.sample.mvvm.adapter.AndroidVersionsAdapter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -32,14 +35,43 @@ import static org.mockito.Mockito.spy;
 @Singleton
 public class MockViewModelFactory implements ViewModelFactory {
 
+    private final Map<Class<? extends ViewModel>, SpyInitializer<? extends ViewModel>>
+            spyInitializerMap;
+
     private MainViewModel mainViewModel;
     private ClickCountViewModel clickCountViewModel;
     private AndroidVersionsViewModel androidVersionsViewModel;
     private AndroidVersionItemViewModel androidVersionItemViewModel;
 
+    public interface SpyInitializer<ViewModelT extends ViewModel> {
+        void setupSpy(ViewModelT viewModel);
+    }
+
     @Inject
     MockViewModelFactory() {
+        spyInitializerMap = new HashMap<>();
+    }
 
+    public void clear() {
+        spyInitializerMap.clear();
+        mainViewModel = null;
+        clickCountViewModel = null;
+        androidVersionsViewModel = null;
+        androidVersionItemViewModel = null;
+    }
+
+    public <ViewModelT extends ViewModel> void registerSpyInitializer(
+            Class<ViewModelT> viewModelClass, SpyInitializer<ViewModelT> spyInitializer) {
+        spyInitializerMap.put(viewModelClass, spyInitializer);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <ViewModelT extends ViewModel> void setupSpy(Class<ViewModelT> viewModelClass,
+                                                         ViewModelT viewModel) {
+        SpyInitializer spyInitializer = spyInitializerMap.get(viewModelClass);
+        if (spyInitializer != null) {
+            spyInitializer.setupSpy(viewModel);
+        }
     }
 
     public MainViewModel getMainViewModel() {
@@ -64,9 +96,7 @@ public class MockViewModelFactory implements ViewModelFactory {
                                              @Nullable ViewModel.State savedViewModelState) {
         mainViewModel = spy(new MainViewModel(activityComponent, savedViewModelState));
         doNothingOnLifeCycle(mainViewModel);
-        doNothing().when(mainViewModel).onClickButtonClicks();
-        doNothing().when(mainViewModel).onClickButtonRecyclerView();
-        doNothing().when(mainViewModel).onClickHiBrianLee();
+        setupSpy(MainViewModel.class, mainViewModel);
         return mainViewModel;
     }
 
@@ -77,8 +107,7 @@ public class MockViewModelFactory implements ViewModelFactory {
             @Nullable ViewModel.State savedViewModelState) {
         clickCountViewModel = spy(new ClickCountViewModel(activityComponent, savedViewModelState));
         doNothingOnLifeCycle(clickCountViewModel);
-        doNothing().when(clickCountViewModel).onClickButton();
-        doNothing().when(clickCountViewModel).onClickHiBrianLee();
+        setupSpy(ClickCountViewModel.class, clickCountViewModel);
         return clickCountViewModel;
     }
 

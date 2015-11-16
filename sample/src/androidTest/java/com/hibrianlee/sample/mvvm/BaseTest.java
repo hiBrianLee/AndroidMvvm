@@ -43,5 +43,6 @@ public class BaseTest {
                 .build();
         application.setAppComponent(testComponent);
         testComponent.inject(this);
+        viewModelFactory.clear();
     }
 }
